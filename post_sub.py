@@ -5,7 +5,7 @@ from PyQt5.QtGui import *
 from PyQt5 import uic
 from qt_material import apply_stylesheet
 import mysql.connector
-
+from datetime import datetime
 
 from_class = uic.loadUiType("/home/jin/dev_ws/prj/iot-repo-4/sub.ui")[0]
 
@@ -55,6 +55,9 @@ class WindowClass(QMainWindow, from_class):
             print("Connected to the broker")
             # 구독할 토픽을 설정
             client.subscribe("post/door")
+            client.subscribe("post/open")
+            client.subscribe("post/input")
+            client.subscribe("post/nofound")
             client.subscribe("post/sensor")
         else:
             print(f"Connection failed with result code {rc}")
@@ -63,18 +66,26 @@ class WindowClass(QMainWindow, from_class):
         # 받은 메시지 처리
         print(f"Received message on topic {msg.topic}: {msg.payload.decode()}")
         if msg.topic == 'post/door':
-            # 커서 생성
-            cur = self.connection.cursor()
-            # 데이터 조회 쿼리 실행
-            query = "INSERT INTO LOG_TABLE (EVENT_TIME, CONTENT) VALUES (%s, %s)"
-    
-            # 이벤트 시간과 내용 설정
-            data =('20240305','CLOSE')
-            # 쿼리 실행
-            cur.execute(query, data)
-            self.connection.commit()
+            content = 'CLOSE'
+            self.insert_log(content)
+        elif msg.topic == 'post/open':
+            content = 'OPEN'
+            self.insert_log(content)
+        elif msg.topic == 'post/nofound':
+            content = 'NOFOUND'
+            self.insert_log(content)
+        elif msg.topic == 'post/input':
+            content = 'INPUT'
+            self.insert_log(content)
+            
         self.addText(msg)
 
+    def insert_log(self,content):
+        query = "INSERT INTO LOG_TABLE (EVENT_TIME, CONTENT) VALUES (%s, %s)"
+        cur = self.connection.cursor()
+        cur.execute(query, (datetime.now(), content))
+        self.connection.commit()
+        
     def addText(self, msg):
         input_text = msg.payload.decode()
         self.p_state.clear()
