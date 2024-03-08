@@ -56,9 +56,8 @@ class WindowClass(QMainWindow, from_class):
             # 구독할 토픽을 설정
             client.subscribe("post/door")
             client.subscribe("post/open")
-            client.subscribe("post/input")
-            client.subscribe("post/nofound")
             client.subscribe("post/sensor")
+            client.subscribe("post/nofound")
         else:
             print(f"Connection failed with result code {rc}")
 
@@ -66,7 +65,10 @@ class WindowClass(QMainWindow, from_class):
         # 받은 메시지 처리
         print(f"Received message on topic {msg.topic}: {msg.payload.decode()}")
         if msg.topic == 'post/door':
-            content = 'CLOSE'
+            if msg.payload.decode() == 'door is open.':
+                content = 'OPEN'
+            else:
+                content = 'CLOSE'
             self.insert_log(content)
         elif msg.topic == 'post/open':
             content = 'OPEN'
@@ -74,7 +76,7 @@ class WindowClass(QMainWindow, from_class):
         elif msg.topic == 'post/nofound':
             content = 'NOFOUND'
             self.insert_log(content)
-        elif msg.topic == 'post/input':
+        elif msg.topic == 'post/sensor':
             content = 'INPUT'
             self.insert_log(content)
             
