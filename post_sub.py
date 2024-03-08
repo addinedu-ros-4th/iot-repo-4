@@ -54,6 +54,7 @@ class WindowClass(QMainWindow, from_class):
         # 루프 시작 (메시지 수신 대기)
         self.client.loop_start()
         
+        self.textlinecnt = 0
         # 타이머 설정
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.timer_timeout)
@@ -136,6 +137,11 @@ class WindowClass(QMainWindow, from_class):
         self.connection.commit()
         
     def addText(self, msg):
+        self.textlinecnt += 1
+        if self.textlinecnt == 17:
+            current_text = ''
+            self.textlinecnt = 0
+            self.clearText()
         input_text = msg.payload.decode()
         current_time = datetime.now()
         formatted_time = current_time.strftime("%Y-%m-%d %H:%M:%S")
