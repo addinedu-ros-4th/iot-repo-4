@@ -7,7 +7,7 @@ from qt_material import apply_stylesheet
 import mysql.connector
 from datetime import datetime
 
-from_class = uic.loadUiType("post_proj/sub.ui")[0]
+from_class = uic.loadUiType("sub2.ui")[0]
 
 class WindowClass(QMainWindow, from_class):
     def __init__(self):
@@ -88,19 +88,21 @@ class WindowClass(QMainWindow, from_class):
         
     def addText(self, msg):
         input_text = msg.payload.decode()
-        
+        current_time = datetime.now()
+        formatted_time = current_time.strftime("%Y-%m-%d %H:%M:%S")
         if msg.topic == 'post/sensor':
-            current_time = datetime.now()
             self.p_count.setText(input_text)
-
-            formatted_time = current_time.strftime("%Y-%m-%d %H:%M:%S")
             current_text = self.text.text()
-            text = current_text+'\n'+formatted_time
+            text = current_text+'\n'+formatted_time + '\t' + '우편물 도착 !!'
             self.text.setText(text)
         elif msg.topic == 'post/door':
             self.p_state.setText(input_text)
             if (msg.payload.decode() == "door is close."):
                 self.clearText()
+            else:
+                current_text = self.text.text()
+                text = current_text+'\n'+formatted_time + '\t' + '문열림 !!'
+                self.text.setText(text)
         elif msg.topic == 'post/doorstate':
             self.text.setText(input_text)
 
