@@ -7,7 +7,7 @@ from qt_material import apply_stylesheet
 import mysql.connector
 from datetime import datetime
 
-from_class = uic.loadUiType("sub.ui")[0]
+from_class = uic.loadUiType("post_proj/sub.ui")[0]
 
 class WindowClass(QMainWindow, from_class):
     def __init__(self):
@@ -15,6 +15,7 @@ class WindowClass(QMainWindow, from_class):
         self.setupUi(self)
 
         self.text.setStyleSheet('color:navy;background:white')
+        self.p_count.setText("0")
         # 사용자 정보
         self.auth = {
             'username': "jun",
@@ -57,7 +58,7 @@ class WindowClass(QMainWindow, from_class):
             client.subscribe("post/door")
             client.subscribe("post/open")
             client.subscribe("post/sensor")
-            client.subscribe("post/nofound")
+            client.subscribe("post/doorstate")
         else:
             print(f"Connection failed with result code {rc}")
 
@@ -72,9 +73,6 @@ class WindowClass(QMainWindow, from_class):
             self.insert_log(content)
         elif msg.topic == 'post/open':
             content = 'OPEN'
-            self.insert_log(content)
-        elif msg.topic == 'post/nofound':
-            content = 'NOFOUND'
             self.insert_log(content)
         elif msg.topic == 'post/sensor':
             content = 'INPUT'
@@ -99,13 +97,17 @@ class WindowClass(QMainWindow, from_class):
             current_text = self.text.text()
             text = current_text+'\n'+formatted_time
             self.text.setText(text)
-        else :
+        elif msg.topic == 'post/door':
             self.p_state.setText(input_text)
             if (msg.payload.decode() == "door is close."):
                 self.clearText()
+        elif msg.topic == 'post/doorstate':
+            self.text.setText(input_text)
+
 
     def clearText(self):
         self.text.clear()
+        self.p_count.setText("0")
         
     def connect_to_mysql(self):
         try:
