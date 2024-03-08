@@ -4,9 +4,10 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5 import uic
 from qt_material import apply_stylesheet
+import mysql.connector
 
 
-from_class = uic.loadUiType("post_proj/sub.ui")[0]
+from_class = uic.loadUiType("/home/jin/dev_ws/prj/iot-repo-4/sub.ui")[0]
 
 class WindowClass(QMainWindow, from_class):
     def __init__(self):
@@ -19,7 +20,16 @@ class WindowClass(QMainWindow, from_class):
             'username': "jun",
             'password': "gg5860ktm"
         }
+        # MySQL 연결 설정
+        self.connection = mysql.connector.connect(
+                host="34.64.119.253",
+                user="root",
+                password="qwer1234",
+                database="Project"
+            )
 
+        # DB 연결
+        self.connect_to_mysql()
         # MQTT 클라이언트 생성
         self.client = mqtt.Client()
         
@@ -52,6 +62,17 @@ class WindowClass(QMainWindow, from_class):
     def on_message(self, client, userdata, msg):
         # 받은 메시지 처리
         print(f"Received message on topic {msg.topic}: {msg.payload.decode()}")
+        if msg.topic == 'post/door':
+            # 커서 생성
+            cur = self.connection.cursor()
+            # 데이터 조회 쿼리 실행
+            query = "INSERT INTO LOG_TABLE (EVENT_TIME, CONTENT) VALUES (%s, %s)"
+    
+            # 이벤트 시간과 내용 설정
+            data =('20240305','CLOSE')
+            # 쿼리 실행
+            cur.execute(query, data)
+            self.connection.commit()
         self.addText(msg)
 
     def addText(self, msg):
@@ -69,6 +90,17 @@ class WindowClass(QMainWindow, from_class):
 
     def clearText(self):
         self.lineEdit.clear()
+        
+    def connect_to_mysql(self):
+        try:
+            if self.connection.is_connected():
+                print("MySQL에 연결되었습니다.")
+                # 여기에 추가적인 작업 수행
+
+                #self.connection.close()  # 연결 종료
+
+        except mysql.connector.Error as error:
+            print("MySQL 연결 오류:", error)
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
