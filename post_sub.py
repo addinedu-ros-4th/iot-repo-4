@@ -153,7 +153,9 @@ class WindowClass(QMainWindow, from_class):
         elif msg.topic == 'post/door':
             self.p_state.setText(input_text)
             if (msg.payload.decode() == "door is close."):
-                self.clearText()
+                current_text = self.text.text()
+                text = current_text+'\n'+formatted_time + '\t' + '문닫음 !!'
+                self.text.setText(text)
             else:
                 current_text = self.text.text()
                 text = current_text+'\n'+formatted_time + '\t' + '문열림 !!'
