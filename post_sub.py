@@ -90,16 +90,19 @@ class WindowClass(QMainWindow, from_class):
         
     def addText(self, msg):
         input_text = msg.payload.decode()
-        self.p_state.clear()
-        self.p_state.setText(input_text)
         
         if msg.topic == 'post/sensor':
+            current_time = datetime.now()
             self.p_count.setText(input_text)
-            
-        else :
+
+            formatted_time = current_time.strftime("%Y-%m-%d %H:%M:%S")
             current_text = self.text.text()
-            text = current_text+'\n'+input_text
+            text = current_text+'\n'+formatted_time
             self.text.setText(text)
+        else :
+            self.p_state.setText(input_text)
+            if (msg.payload.decode() == "door is close."):
+                self.clearText()
 
     def clearText(self):
         self.lineEdit.clear()
