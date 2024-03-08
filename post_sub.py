@@ -7,7 +7,7 @@ from qt_material import apply_stylesheet
 import mysql.connector
 from datetime import datetime
 
-from_class = uic.loadUiType("/home/jin/dev_ws/prj/iot-repo-4/sub.ui")[0]
+from_class = uic.loadUiType("sub.ui")[0]
 
 class WindowClass(QMainWindow, from_class):
     def __init__(self):
@@ -105,7 +105,7 @@ class WindowClass(QMainWindow, from_class):
                 self.clearText()
 
     def clearText(self):
-        self.lineEdit.clear()
+        self.text.clear()
         
     def connect_to_mysql(self):
         try:
