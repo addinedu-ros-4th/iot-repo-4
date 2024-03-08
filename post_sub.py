@@ -106,6 +106,7 @@ class WindowClass(QMainWindow, from_class):
                 content = 'OPEN'
                 self.signal.timer_stop_signal.emit()
                 self.timer_active = False
+                self.update_mailfound()
             else:
                 content = 'CLOSE'
             self.insert_log(content)
@@ -122,7 +123,12 @@ class WindowClass(QMainWindow, from_class):
         self.addText(msg)
 
     
-            
+    def update_mailfound(self):
+        query = "UPDATE MAIL SET ISFOUND = 'TRUE';"
+        cur = self.connection.cursor()
+        cur.execute(query)
+        self.connection.commit()
+                
     def insert_log(self,content):
         query = "INSERT INTO LOG_TABLE (EVENT_TIME, CONTENT) VALUES (%s, %s)"
         cur = self.connection.cursor()
