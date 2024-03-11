@@ -9,11 +9,43 @@ from datetime import datetime
 from PyQt5.QtCore import QTimer,QObject, pyqtSignal
 from_class = uic.loadUiType("sub2.ui")[0]
 
+
+connection = mysql.connector.connect(
+                host="34.64.119.253",
+                user="root",
+                password="qwer1234",
+                database="Project"
+            )    
 class Signal(QObject):
     timer_start_signal = pyqtSignal()
     timer_stop_signal = pyqtSignal()
     show_mail_signal = pyqtSignal()
-    
+
+class Logmodal(QDialog):
+    def __init__(self):
+        super().__init__()
+        self.ui = uic.loadUi("log.ui",self)
+        self.textBrowser.setStyleSheet('color:black;background:white')
+        self.get_log()  # 로그를 가져와서 표시
+        self.show()
+        
+    def get_log(self):
+        # 데이터베이스에서 모든 레코드 가져오기
+        cur = connection.cursor()
+        cur.execute("SELECT * FROM LOG_TABLE")
+        logs = cur.fetchall()
+
+          #로그를 표 형식으로 포맷
+        formatted_logs = ""
+        for log in logs:
+            # 로그 시간 정보에서 소수점 이하 정보 제거
+            log_time_str = str(log[0]).split('.')[0]  # 로그 시간 정보에서 소수점 이하 정보 제거
+            formatted_logs += "{:<30} {:<20}\n".format(log_time_str, log[1])
+
+        # 로그를 텍스트 브라우저에 추가
+        self.textBrowser.append(formatted_logs)
+        
+            
 class WindowClass(QMainWindow, from_class):
     def __init__(self):
         super().__init__()
@@ -27,12 +59,7 @@ class WindowClass(QMainWindow, from_class):
             'password': "gg5860ktm"
         }
         # MySQL 연결 설정
-        self.connection = mysql.connector.connect(
-                host="34.64.119.253",
-                user="root",
-                password="qwer1234",
-                database="Project"
-            )
+    
 
         # DB 연결
         self.connect_to_mysql()
@@ -49,7 +76,7 @@ class WindowClass(QMainWindow, from_class):
 
         # 브로커에 연결
         self.client.username_pw_set(username=self.auth['username'], password=self.auth['password'])
-        self.client.connect("192.168.0.5", 1883)
+        self.client.connect("192.168.0.8", 1883)
 
         # 루프 시작 (메시지 수신 대기)
         self.client.loop_start()
@@ -66,7 +93,14 @@ class WindowClass(QMainWindow, from_class):
         self.signal.timer_start_signal.connect(self.timer_start)
         self.signal.timer_stop_signal.connect(self.timer_stop)
         self.signal.show_mail_signal.connect(self.show_mail_message)
-
+        #모달
+        self.pushButton.clicked.connect(self.logmodal)
+        
+    def logmodal(self):
+        window_2 = Logmodal()
+        window_2.exec_()
+        
+        
     def timer_start(self):
         self.timer_count = 0
         self.timer.start(1000)
@@ -93,7 +127,6 @@ class WindowClass(QMainWindow, from_class):
             print("Connected to the broker")
             # 구독할 토픽을 설정
             client.subscribe("post/door")
-            client.subscribe("post/open")
             client.subscribe("post/sensor")
             client.subscribe("post/doorstate")
         else:
@@ -104,37 +137,40 @@ class WindowClass(QMainWindow, from_class):
         print(f"Received message on topic {msg.topic}: {msg.payload.decode()}")
         if msg.topic == 'post/door':
             if msg.payload.decode() == 'door is open.':
-                content = 'OPEN'
+                content = '문열림'
                 self.signal.timer_stop_signal.emit()
                 self.timer_active = False
                 self.update_mailfound()
             else:
-                content = 'CLOSE'
-            self.insert_log(content)
-        elif msg.topic == 'post/open':
-            content = 'OPEN'
-            self.insert_log(content)
+                content = '문닫힘'
         elif msg.topic == 'post/sensor':
-            content = 'INPUT'
-            self.insert_log(content)
+            content = '우편물 도착'
+            self.insert_mail()
             if self.timer_active == False:
                 self.signal.timer_start_signal.emit()
                 self.timer_active = True
-            
+                
+        self.insert_log(content)    
         self.addText(msg)
 
     
     def update_mailfound(self):
         query = "UPDATE MAIL SET ISFOUND = 'TRUE';"
-        cur = self.connection.cursor()
+        cur = connection.cursor()
         cur.execute(query)
-        self.connection.commit()
-                
+        connection.commit()
+        
+    def insert_mail(self):
+        query = "INSERT INTO MAIL (EVENT_TIME, ISFOUND) VALUES (%s,%s)"
+        cur = connection.cursor()
+        cur.execute(query,(datetime.now(), "False"))
+        connection.commit()   
+                 
     def insert_log(self,content):
         query = "INSERT INTO LOG_TABLE (EVENT_TIME, CONTENT) VALUES (%s, %s)"
-        cur = self.connection.cursor()
+        cur = connection.cursor()
         cur.execute(query, (datetime.now(), content))
-        self.connection.commit()
+        connection.commit()
         
     def addText(self, msg):
         self.textlinecnt += 1
@@ -153,6 +189,7 @@ class WindowClass(QMainWindow, from_class):
         elif msg.topic == 'post/door':
             self.p_state.setText(input_text)
             if (msg.payload.decode() == "door is close."):
+                self.p_count.setText("0")
                 current_text = self.text.text()
                 text = current_text+'\n'+formatted_time + '\t' + '문닫음 !!'
                 self.text.setText(text)
@@ -173,7 +210,7 @@ class WindowClass(QMainWindow, from_class):
         
     def connect_to_mysql(self):
         try:
-            if self.connection.is_connected():
+            if connection.is_connected():
                 print("MySQL에 연결되었습니다.")
                 # 여기에 추가적인 작업 수행
 
