@@ -58,8 +58,9 @@ class WindowClass(QMainWindow, from_class):
             'username': "jun",
             'password': "gg5860ktm"
         }
+        self.user=""
         # MySQL 연결 설정
-    
+        
 
         # DB 연결
         self.connect_to_mysql()
@@ -129,18 +130,18 @@ class WindowClass(QMainWindow, from_class):
             client.subscribe("post/door")
             client.subscribe("post/sensor")
             client.subscribe("post/doorstate")
+            client.subscribe("post/id")
         else:
             print(f"Connection failed with result code {rc}")
 
     def on_message(self, client, userdata, msg):
-        # 받은 메시지 처리
+        # 받은 메시지 처리 
         print(f"Received message on topic {msg.topic}: {msg.payload.decode()}")
         if msg.topic == 'post/door':
-            if msg.payload.decode() == 'door is open.':
+            if msg.payload.decode() == 'door is open':
                 content = '문열림'
                 self.signal.timer_stop_signal.emit()
                 self.timer_active = False
-                self.update_mailfound()
             else:
                 content = '문닫힘'
         elif msg.topic == 'post/sensor':
@@ -149,13 +150,37 @@ class WindowClass(QMainWindow, from_class):
             if self.timer_active == False:
                 self.signal.timer_start_signal.emit()
                 self.timer_active = True
-                
+        elif msg.topic == 'post/id': 
+            if self.isfound() == 0:
+                 return
+            self.update_mailfound()
+            id = msg.payload.decode()
+            self.user = self.getuser(id)
+            content = self.user+'님이 수거함'
+        elif msg.topic == 'post/doorstate': 
+            self.addText(msg)
+            return
         self.insert_log(content)    
         self.addText(msg)
 
+    def isfound(self):
+        cur = connection.cursor()
+        cur.execute("SELECT count(*) FROM MAIL m WHERE ISFOUND ='FALSE'")
+        user = cur.fetchone()
+        if user[0] == 0:
+            return 0
+        else:
+            return 1
+        
+        
+    def getuser(self,id):
+        cur = connection.cursor()
+        cur.execute("SELECT * FROM AUTH WHERE ID = %s", (id,))
+        user = cur.fetchone()
+        return user[1] if user else ""
     
     def update_mailfound(self):
-        query = "UPDATE MAIL SET ISFOUND = 'TRUE';"
+        query = "UPDATE MAIL SET ISFOUND = 'TRUE'"
         cur = connection.cursor()
         cur.execute(query)
         connection.commit()
@@ -163,10 +188,12 @@ class WindowClass(QMainWindow, from_class):
     def insert_mail(self):
         query = "INSERT INTO MAIL (EVENT_TIME, ISFOUND) VALUES (%s,%s)"
         cur = connection.cursor()
-        cur.execute(query,(datetime.now(), "False"))
+        cur.execute(query,(datetime.now(), "FALSE"))
         connection.commit()   
                  
     def insert_log(self,content):
+        if content =='x':
+            return
         query = "INSERT INTO LOG_TABLE (EVENT_TIME, CONTENT) VALUES (%s, %s)"
         cur = connection.cursor()
         cur.execute(query, (datetime.now(), content))
@@ -188,11 +215,12 @@ class WindowClass(QMainWindow, from_class):
             self.text.setText(text)
         elif msg.topic == 'post/door':
             self.p_state.setText(input_text)
-            if (msg.payload.decode() == "door is close."):
+            if (msg.payload.decode() == "door is close"):
                 self.p_count.setText("0")
                 current_text = self.text.text()
                 text = current_text+'\n'+formatted_time + '\t' + '문닫음 !!'
                 self.text.setText(text)
+                self.p_count.setText("0")
             else:
                 current_text = self.text.text()
                 text = current_text+'\n'+formatted_time + '\t' + '문열림 !!'
@@ -200,6 +228,10 @@ class WindowClass(QMainWindow, from_class):
         elif msg.topic == 'post/doorstate':
             current_text = self.text.text()
             text = current_text+'\n'+formatted_time + '\t' + input_text
+            self.text.setText(text)
+        elif msg.topic == 'post/id':
+            current_text = self.text.text()
+            text = current_text+'\n'+formatted_time + '\t' + self.user+'님이 수거함'
             self.text.setText(text)
 
 
