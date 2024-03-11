@@ -20,6 +20,8 @@ bool objectDetected = false;
 bool tcrtDetected = false; // Flag for TCRT5000 detection
 const int sensorPin = A0; // Connect the signal junction to analog pin A0
 int currentServoPosition = 90; // Variable to track the current servo position
+unsigned long openTime = 0;  // 문이 열린 시간을 기록
+const unsigned long doorOpenDuration = 10000;  // 문이 열려 있어야 하는 시간 (10초)
 
 void setup() {
   Serial.begin(115200);
@@ -56,6 +58,7 @@ void setup() {
   }
 }
 void loop() {
+  
    int value = getFingerprintIDez();
   for(int i=0;i<5;i++){
     if (value == ID[i]) {
@@ -79,14 +82,19 @@ void loop() {
       Serial.print("ID:");
       Serial.println(value);
       count=0;
+      openTime=0;
       }
+
       
     }else {
       dis.setCursor(0, 1);
       dis.print("         ");
-      delay(50);
+     
     }
-    delay(50);
+  }
+  if (currentServoPosition == 90 && millis() - openTime >= doorOpenDuration) {
+    Serial.println("문을 잠궈주세요");
+    openTime = millis();  // 메시지를 반복해서 출력하지 않도록 시간 업데이트
   }
   int sensorValue = analogRead(sensorPin); // Read the analog value from sensor
   int reading = digitalRead(buttonPin);
@@ -99,14 +107,13 @@ void loop() {
   duration = pulseIn(ECHO_PIN, HIGH); // Measure the time the echo pin goes HIGH
   distance = (duration / 2) / 29.1;
   
-  
   // When an object within 10cm is detected and it was not already detected
-  if (distance < 10 && !objectDetected) {
+  if (distance < 5 && !objectDetected) {
     count++; // Increase the count just once for each detection
     objectDetected = true; // Mark that an object has been detected
     Serial.print("count:");
     Serial.println(count);
-  } else if (distance >= 80) {
+  } else if (distance >= 10) {
     objectDetected = false; // Reset the flag when no object is within the detection range
   }
 }

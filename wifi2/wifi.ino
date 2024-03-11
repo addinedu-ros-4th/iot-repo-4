@@ -3,7 +3,7 @@
 #include<Arduino.h>
 const char* ssid = "AIE_509_2.4G";
 const char* password = "addinedu_class1";
-const char* mqtt_server = "192.168.0.5";
+const char* mqtt_server = "192.168.0.8";
 const int mqtt_port = 1883;
 const char* mqtt_user = "jun";
 const char* mqtt_password = "gg5860ktm";
@@ -73,6 +73,10 @@ void loop() {
     }
     if (message.length() > 0 && message.startsWith("문을")){
       client.publish("post/doorstate", message.c_str());
+    }
+    if (message.length() > 0 && message.startsWith("ID")) {
+        message=message.substring(3);
+        client.publish("post/id", message.c_str());
     }
     }
 }
