@@ -23,12 +23,19 @@
 
 
 # 2. Hardware
+1. Arduino Uno & WIFI ESP8266 Module
+2. Servo Motor
+3. I2C LCD 1602 Display board
+4. JM101-fingerprint sensor
+5. Ultrasonic Ranging Module HR -SR04 Sensor
+   
 ![image](https://github.com/addinedu-ros-4th/iot-repo-4/assets/155615876/59a3e5db-1591-42d7-9f50-cfc0303d01ce)![image](https://github.com/addinedu-ros-4th/iot-repo-4/assets/155615876/6e66dd19-c054-402e-96e1-e2cddca32b4d)
 ![image](https://github.com/addinedu-ros-4th/iot-repo-4/assets/155615876/b3354dce-4425-4f25-b88a-53bb1fe1b6bf)
 ![image](https://github.com/addinedu-ros-4th/iot-repo-4/assets/155615876/2a040fd5-2f19-4aba-9e3f-39507d894bee)
 ![image](https://github.com/addinedu-ros-4th/iot-repo-4/assets/155615876/a64e189c-5e20-4ca9-bcf8-a1022bad5301)
 
 # 3. Software
+1. 
 
 # 4. 프로젝트 설명
 ### 4.1 기능 리스트
@@ -36,22 +43,23 @@
 
 ### 4.2 시스템 흐름 / Flow Chart
 HW 시스템 흐름도
-![Screenshot from 2024-03-12 13-12-46](https://github.com/addinedu-ros-4th/iot-repo-4/assets/155615876/03159c3d-1e8f-4c63-b9d4-65a017e2e240)
 
+![Screenshot from 2024-03-12 13-12-46](https://github.com/addinedu-ros-4th/iot-repo-4/assets/155615876/03159c3d-1e8f-4c63-b9d4-65a017e2e240)
+---
 PYQT 시스템 흐름도
-![Screenshot from 2024-03-12 12-59-46](https://github.com/addinedu-ros-4th/iot-repo-4/assets/155615876/062036ea-7bc8-484d-9f56-745b282f93df)
+<img src = "https://github.com/addinedu-ros-4th/iot-repo-4/assets/155615876/062036ea-7bc8-484d-9f56-745b282f93df" width="100%" height="75%">
+
 
 ### 4.3 MQTT 프로토콜
 ![Screenshot from 2024-03-12 13-19-41](https://github.com/addinedu-ros-4th/iot-repo-4/assets/155615876/e5614861-72b5-4b50-b746-80fd1d5050af)
 
 ### 4.4 Database 구성
-![Screenshot from 2024-03-12 15-30-13](https://github.com/addinedu-ros-4th/iot-repo-4/assets/155615876/e6767b36-fc04-4eab-8dca-79a47809a37d)
-
-![Screenshot from 2024-03-12 15-30-52](https://github.com/addinedu-ros-4th/iot-repo-4/assets/155615876/18426162-b3d3-46a8-bafb-41550980bd2f)
-
-![Screenshot from 2024-03-12 15-31-11](https://github.com/addinedu-ros-4th/iot-repo-4/assets/155615876/60d50f4a-9a8f-4900-8ced-aed5d0cc872b)
+<img src = "https://github.com/addinedu-ros-4th/iot-repo-4/assets/155615876/e6767b36-fc04-4eab-8dca-79a47809a37d" width="25%" height="25%"> <img src = "https://github.com/addinedu-ros-4th/iot-repo-4/assets/155615876/18426162-b3d3-46a8-bafb-41550980bd2f" width="25%" height="25%"> <img src = "https://github.com/addinedu-ros-4th/iot-repo-4/assets/155615876/60d50f4a-9a8f-4900-8ced-aed5d0cc872b" width="25%" height="25%">
 
 
-### 4.5 
+# 5 이론 및 원리
+### 5.1 MQTT 작동원리 
 
+
+# 시연영상
 
