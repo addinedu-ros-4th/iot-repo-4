@@ -9,7 +9,7 @@
 ---
 
 
-#  1. 프로젝트 소개
+#  1 프로젝트 소개
 ### 프로젝트 목표
     1. Arduino와 pyqt를 모두 사용할 수 있는 스마트 우편함 시스템을 설계
     2. MQTT를 통한 WIFI 통신
@@ -22,19 +22,22 @@
     유겸희 - Arduino / HW
 
 
-# 2. Hardware
+# 2 Hardware
 1. Arduino Uno & WIFI ESP8266 Module
 2. Servo Motor
 3. I2C LCD 1602 Display board
 4. JM101-fingerprint sensor
 5. Ultrasonic Ranging Module HR -SR04 Sensor
+6. Battery
    
 ![image](https://github.com/addinedu-ros-4th/iot-repo-4/assets/155615876/59a3e5db-1591-42d7-9f50-cfc0303d01ce)![image](https://github.com/addinedu-ros-4th/iot-repo-4/assets/155615876/6e66dd19-c054-402e-96e1-e2cddca32b4d)
 ![image](https://github.com/addinedu-ros-4th/iot-repo-4/assets/155615876/b3354dce-4425-4f25-b88a-53bb1fe1b6bf)
 ![image](https://github.com/addinedu-ros-4th/iot-repo-4/assets/155615876/2a040fd5-2f19-4aba-9e3f-39507d894bee)
 ![image](https://github.com/addinedu-ros-4th/iot-repo-4/assets/155615876/a64e189c-5e20-4ca9-bcf8-a1022bad5301)
+![image (4)](https://github.com/addinedu-ros-4th/iot-repo-4/assets/155615876/dfed3590-8e16-493d-89e2-b0496eebb186)
 
-# 3. Software
+
+# 3 Software
 1. 
 
 # 4. 프로젝트 설명
@@ -57,9 +60,13 @@ PYQT 시스템 흐름도
 <img src = "https://github.com/addinedu-ros-4th/iot-repo-4/assets/155615876/e6767b36-fc04-4eab-8dca-79a47809a37d" width="25%" height="25%"> <img src = "https://github.com/addinedu-ros-4th/iot-repo-4/assets/155615876/18426162-b3d3-46a8-bafb-41550980bd2f" width="25%" height="25%"> <img src = "https://github.com/addinedu-ros-4th/iot-repo-4/assets/155615876/60d50f4a-9a8f-4900-8ced-aed5d0cc872b" width="25%" height="25%">
 
 
-# 5 이론 및 원리
-### 5.1 MQTT 작동원리 
+# 5 디자인
+### 5.1 Design
+![Screenshot from 2024-03-12 16-47-39](https://github.com/addinedu-ros-4th/iot-repo-4/assets/155615876/f38165cc-1f7a-4edd-88f3-51fd3628fd81)
+
+### 5.2 Model
+![IMG_0666 (1)](https://github.com/addinedu-ros-4th/iot-repo-4/assets/155615876/c5c8bf69-bd16-493f-abb4-c0cdff55df74)
 
 
-# 시연영상
+# 6 시연영상
 
