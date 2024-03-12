@@ -34,10 +34,17 @@
 ### 4.1 기능 리스트
 ![Screenshot from 2024-03-12 13-21-33](https://github.com/addinedu-ros-4th/iot-repo-4/assets/155615876/4adbd0ff-f13a-4ab0-ad05-bc0650e82bdd)
 
-### 4.2 MQTT 프로토콜
+### 4.2 시스템 흐름 / Flow Chart
+HW 시스템 흐름도
+![Screenshot from 2024-03-12 13-12-46](https://github.com/addinedu-ros-4th/iot-repo-4/assets/155615876/03159c3d-1e8f-4c63-b9d4-65a017e2e240)
+
+PYQT 시스템 흐름도
+![Screenshot from 2024-03-12 12-59-46](https://github.com/addinedu-ros-4th/iot-repo-4/assets/155615876/062036ea-7bc8-484d-9f56-745b282f93df)
+
+### 4.3 MQTT 프로토콜
 ![Screenshot from 2024-03-12 13-19-41](https://github.com/addinedu-ros-4th/iot-repo-4/assets/155615876/e5614861-72b5-4b50-b746-80fd1d5050af)
 
-### 4.3 Database 구성
+### 4.4 Database 구성
 ![Screenshot from 2024-03-12 15-30-13](https://github.com/addinedu-ros-4th/iot-repo-4/assets/155615876/e6767b36-fc04-4eab-8dca-79a47809a37d)
 
 ![Screenshot from 2024-03-12 15-30-52](https://github.com/addinedu-ros-4th/iot-repo-4/assets/155615876/18426162-b3d3-46a8-bafb-41550980bd2f)
@@ -45,6 +52,6 @@
 ![Screenshot from 2024-03-12 15-31-11](https://github.com/addinedu-ros-4th/iot-repo-4/assets/155615876/60d50f4a-9a8f-4900-8ced-aed5d0cc872b)
 
 
-
+### 4.5 
 
 
