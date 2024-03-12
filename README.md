@@ -62,7 +62,7 @@ PYQT 시스템 흐름도
 
 # 5 디자인
 ### 5.1 Design
-![Screenshot from 2024-03-12 16-47-39](https://github.com/addinedu-ros-4th/iot-repo-4/assets/155615876/f38165cc-1f7a-4edd-88f3-51fd3628fd81)
+![Screenshot from 2024-03-12 16-58-59](https://github.com/addinedu-ros-4th/iot-repo-4/assets/155615876/1114178e-1f74-4299-93d0-a301f4850296)
 
 ### 5.2 Model
 <img src = "https://github.com/addinedu-ros-4th/iot-repo-4/assets/155615876/c5c8bf69-bd16-493f-abb4-c0cdff55df74" width="50%" height="50%">
