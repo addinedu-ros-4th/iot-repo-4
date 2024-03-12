@@ -66,7 +66,7 @@ void loop() {
       myservo.write(90); // Rotate the servo motor to 90 degrees
       currentServoPosition = 90;
       dis.setCursor(0, 1);
-      dis.print("Thank you");
+      dis.print("door is open");
       Serial.println("door is open");
       delay(2000);
       Serial.print("ID:");
@@ -76,7 +76,8 @@ void loop() {
         myservo.write(0);
         currentServoPosition = 0;
         dis.setCursor(0, 1);
-      dis.print("Thank you");
+     
+      dis.print("door is close");
       Serial.println("door is close");
       delay(2000);
       Serial.print("ID:");
@@ -88,7 +89,7 @@ void loop() {
       
     }else {
       dis.setCursor(0, 1);
-      dis.print("         ");
+      dis.print("              ");
      
     }
   }
@@ -105,17 +106,26 @@ void loop() {
   delayMicroseconds(10);
   digitalWrite(TRIG_PIN, LOW);
   duration = pulseIn(ECHO_PIN, HIGH); // Measure the time the echo pin goes HIGH
-  distance = (duration / 2) / 29.1;
+  distance = (duration / 2) / 10;
   
   // When an object within 10cm is detected and it was not already detected
-  if (distance < 5 && !objectDetected) {
+  if (distance <= 20 && !objectDetected) {
     count++; // Increase the count just once for each detection
     objectDetected = true; // Mark that an object has been detected
     Serial.print("count:");
     Serial.println(count);
-  } else if (distance >= 10) {
+  } else if (27 <= distance && distance <= 32 ) {
     objectDetected = false; // Reset the flag when no object is within the detection range
   }
+  else if (distance >= 35 && !objectDetected) {
+    count++; // Increase the count just once for each detection
+    objectDetected = true; // Mark that an object has been detected
+    Serial.print("count:");
+    Serial.println(count);
+  }
+    Serial.println(distance);
+   
+   
 }
 
 
