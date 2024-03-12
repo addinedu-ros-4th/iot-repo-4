@@ -16,11 +16,13 @@ connection = mysql.connector.connect(
                 password="qwer1234",
                 database="Project"
             )    
+
 class Signal(QObject):
     timer_start_signal = pyqtSignal()
     timer_stop_signal = pyqtSignal()
     show_mail_signal = pyqtSignal()
 
+#모달
 class Logmodal(QDialog):
     def __init__(self):
         super().__init__()
