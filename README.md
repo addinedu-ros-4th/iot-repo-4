@@ -21,7 +21,7 @@
     과악준 - Arduino / MQTT
     유겸희 - Arduino / HW
 
-
+---
 # 2 Hardware
 1. Arduino Uno & WIFI ESP8266 Module
 2. Servo Motor
@@ -36,10 +36,21 @@
 ![image](https://github.com/addinedu-ros-4th/iot-repo-4/assets/155615876/a64e189c-5e20-4ca9-bcf8-a1022bad5301)
 ![image (4)](https://github.com/addinedu-ros-4th/iot-repo-4/assets/155615876/dfed3590-8e16-493d-89e2-b0496eebb186)
 
-
+---
 # 3 Software
-1. 
+1. Arduino
+   
+![image](https://github.com/addinedu-ros-4th/iot-repo-4/assets/155615876/a745961a-6f5d-49ab-8d65-a62d86592951)
+---
+2. Pyqt
 
+![image](https://github.com/addinedu-ros-4th/iot-repo-4/assets/155615876/20e87a1b-cd4d-4718-9a08-12feeb699f60)
+---
+3. MQTT
+   
+![image](https://github.com/addinedu-ros-4th/iot-repo-4/assets/155615876/26d33bd5-e4b1-424c-aae4-0d29815c0802)
+
+---
 # 4. 프로젝트 설명
 ### 4.1 기능 리스트
 ![Screenshot from 2024-03-12 13-21-33](https://github.com/addinedu-ros-4th/iot-repo-4/assets/155615876/4adbd0ff-f13a-4ab0-ad05-bc0650e82bdd)
@@ -59,7 +70,7 @@ PYQT 시스템 흐름도
 ### 4.4 Database 구성
 <img src = "https://github.com/addinedu-ros-4th/iot-repo-4/assets/155615876/e6767b36-fc04-4eab-8dca-79a47809a37d" width="25%" height="25%"> <img src = "https://github.com/addinedu-ros-4th/iot-repo-4/assets/155615876/18426162-b3d3-46a8-bafb-41550980bd2f" width="25%" height="25%"> <img src = "https://github.com/addinedu-ros-4th/iot-repo-4/assets/155615876/60d50f4a-9a8f-4900-8ced-aed5d0cc872b" width="25%" height="25%">
 
-
+---
 # 5 디자인
 ### 5.1 Design
 ![Screenshot from 2024-03-12 16-58-59](https://github.com/addinedu-ros-4th/iot-repo-4/assets/155615876/1114178e-1f74-4299-93d0-a301f4850296)
@@ -67,5 +78,6 @@ PYQT 시스템 흐름도
 ### 5.2 Model
 <img src = "https://github.com/addinedu-ros-4th/iot-repo-4/assets/155615876/c5c8bf69-bd16-493f-abb4-c0cdff55df74" width="50%" height="50%">
 
+---
 # 6 시연영상
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/i6gyzcIRdr0/0.jpg)](https://www.youtube.com/watch?v=i6gyzcIRdr0)
