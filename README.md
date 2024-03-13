@@ -17,13 +17,13 @@
     
 ### 1.2 프로젝트 팀 소개
 
-[김영환](12yhkim@naver.com) - 리더 / Python / PYQT / HW 
+[김영환](https://github.com/earnest99) - 리더 / Python / PYQT / HW 
 
-[김진홍](sna145815@gmail.com) - PYQT / Database 
+[김진홍](https://github.com/sna145815) - PYQT / Database 
 
-[곽준](ksg77772000@gmail.com) - Arduino / MQTT
+[곽준](https://github.com/junroun) - Arduino / MQTT
 
-[유겸희](khyoo0825@gmail.com) - Arduino / HW
+[유겸희](https://gist.github.com/kyemhee) - Arduino / HW
 
 ---
 # 2 Hardware
