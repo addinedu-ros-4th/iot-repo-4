@@ -16,10 +16,14 @@
     3. 센서들을 통한 실시간 데이터로 데이터베이스 구축
     
 ### 1.2 프로젝트 팀 소개
-    김영환 - 리더 / Python / PYQT / HW 
-    김진홍 - PYQT / Database 
-    과악준 - Arduino / MQTT
-    유겸희 - Arduino / HW
+
+[김영환](12yhkim@naver.com) - 리더 / Python / PYQT / HW 
+
+[김진홍](sna145815@gmail.com) - PYQT / Database 
+
+[곽준](ksg77772000@gmail.com) - Arduino / MQTT
+
+[유겸희](khyoo0825@gmail.com) - Arduino / HW
 
 ---
 # 2 Hardware
@@ -81,3 +85,8 @@ PYQT 시스템 흐름도
 ---
 # 6 시연영상
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/i6gyzcIRdr0/0.jpg)](https://www.youtube.com/watch?v=i6gyzcIRdr0)
+
+# MQTT 설치
+    $ sudo apt-get install mosquitto
+    $ sudo apt install mosquitto-clients
+
